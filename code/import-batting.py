@@ -24,16 +24,15 @@ def main():
     df = df[df['yearID'] > 1980]
     df['1B'] = (df['H'] - (df['2B'] + df['3B'] + df['HR']))
 
+    grouped_df = df.groupby("yearID")[["AB", "H", "1B", "2B", "3B", "HR", "SO"]].sum()
 
-    grouped_df = df.groupby("yearID")[["AB", "H", "1B", "2B", "3B", "HR"]].sum()
+    grouped_df['1B_per'] = (grouped_df['1B'] / grouped_df['AB'])
+    grouped_df['2B_per'] = (grouped_df['2B'] / grouped_df['AB'])
+    grouped_df['3B_per'] = (grouped_df['3B'] / grouped_df['AB'])
+    grouped_df['HR_per'] = (grouped_df['HR'] / grouped_df['AB'])
+    grouped_df['SO_per'] = (grouped_df['SO'] / grouped_df['AB'])
 
-    # [["AB", "H", "2B", "3B", "HR"]]
-
-    print grouped_df
-
-    # for y in grouped_df:
-    #     print type(y)
-    #     print dir(y)
+    print grouped_df.to_csv()
 
 if __name__ == '__main__':
     main()

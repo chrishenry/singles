@@ -1,3 +1,4 @@
 *.pyc
 mysql-data
 data
+*.csv

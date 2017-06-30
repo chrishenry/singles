@@ -1,23 +1,11 @@
 version: '3'
 services:
 
-  db:
-    image: mysql:latest
-    env_file: .env
-    volumes:
-      - ./mysql-data/:/var/lib/mysql/
-
   data:
     build:
       context: .
       dockerfile: Dockerfile.data
     env_file: .env
-    environment:
-      MYSQL_HOST: db
     volumes:
       - ./data/:/opt/app/data/
       - ./code/:/opt/app/code/
-    depends_on:
-      - db
-    links:
-      - db
